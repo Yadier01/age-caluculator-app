@@ -7,7 +7,7 @@ const button = document.querySelector(".button");
 const resultDay = document.querySelector(".result-day");
 const resultMonth = document.querySelector(".result-month");
 const resultYear = document.querySelector(".result-year");
-
+a;
 let userDay;
 let userMonth;
 let userYear;
