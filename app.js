@@ -7,8 +7,11 @@ const button = document.querySelector(".button");
 const resultDay = document.querySelector(".result-day");
 const resultMonth = document.querySelector(".result-month");
 const resultYear = document.querySelector(".result-year");
-const errorMessages = document.querySelectorAll(".errorMessage");
+const errorDay = document.querySelector(".errorDay");
+const errorYear = document.querySelector(".errorYear");
+const errorMonth = document.querySelector(".errorMonth");
 
+const currentYear = new Date().getFullYear();
 let userDay = "";
 let userMonth = "";
 let userYear = "";
@@ -42,17 +45,18 @@ form.addEventListener("submit", (e) => {
   let thisMonth = Math.floor((diffDays % 365) / 30);
   let thisDay = diffDays % 30;
 
-  const printYear = `-- ${thisYear} year`;
+  const printYear = `-- ${thisYear} years`;
   const printMonth = `-- ${thisMonth} month`;
   const printDay = `-- ${thisDay} day`;
 
   if (
     isNaN(parseInt(dayValue)) ||
     isNaN(parseInt(monthValue)) ||
-    isNaN(parseInt(yearValue)) ||
-    userYear > yearValue
+    isNaN(parseInt(yearValue))
   ) {
     checkInput();
+  } else if (userYear > currentYear) {
+    errorYear.textContent = "You were not born in the future ;)";
   } else {
     resultYear.innerHTML = printYear;
     resultMonth.innerHTML = printMonth;
@@ -61,7 +65,7 @@ form.addEventListener("submit", (e) => {
 });
 
 function checkInput() {
-  errorMessages.forEach((errorMessage) => {
-    errorMessage.textContent = "Please input a valid day";
-  });
+  errorDay.textContent = "Please input a valid day";
+  errorMonth.textContent = "Please enter a valid month";
+  errorYear.textContent = "Please enter a valid Year";
 }
