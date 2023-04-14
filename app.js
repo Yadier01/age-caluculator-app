@@ -14,37 +14,49 @@ let userYear;
 day.addEventListener("input", (e) => {
   userDay = e.target.value;
 
-  console.log(userDay);
+  console.log(userDay, "days");
 });
 
 month.addEventListener("input", (e) => {
   userMonth = e.target.value;
-  console.log(userMonth);
+  console.log(userMonth, "months");
 });
 year.addEventListener("input", (e) => {
   userYear = e.target.value;
-  console.log(userYear);
+  console.log(userYear, "years");
 });
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const now = new Date();
   const userBirthdate = new Date(`${userYear}-${userMonth}-${userDay}`);
-  let thisDay = now.getDay() - userBirthdate.getDay();
-  let thisMonth = now.getMonth() - userBirthdate.getMonth();
   let thisYear = now.getFullYear() - userBirthdate.getFullYear();
+  let thisMonth = now.getMonth() - userBirthdate.getMonth();
+  let thisDay = now.getDay() - userBirthdate.getDay();
 
-  if (
-    now.getMonth() < userBirthdate.getMonth() ||
-    (now.getMonth() === userBirthdate.getMonth() &&
-      now.getDate() < userBirthdate.getDate())
-  ) {
-    thisYear--;
-    thisMonth += 12;
+  const printYear = `-- ${thisYear} year`;
+  const printMonth = `-- ${thisMonth} month`;
+  const printDay = `-- ${thisDay} day`;
+  if (thisDay < 0) {
+    thisDay +=
+      new Date(now.getFullYear(), now.getMonth(), 0).getDate() -
+      userBirthdate.getDate();
+    thisMonth--;
   }
-  if (userMonth === null || userMonth === undefined) {
-    console.log("no");
+  if (isNaN(userDay) || isNaN(userMonth) || isNaN(userYear)) {
+    checkInput();
+  } else {
+    resultYear.innerHTML = printYear;
+    resultMonth.innerHTML = printMonth;
+    resultDay.innerHTML = printDay;
   }
-  resultDay.innerHTML = thisDay;
-  resultMonth.innerHTML = thisMonth;
-  resultYear.innerHTML = thisYear;
 });
+// JavaScript
+
+const errorMessage = document.getElementById("errorMessage");
+function checkInput() {
+  if (isNaN(userDay) || userDay === null || userDay === undefined) {
+    errorMessage.textContent = "Please input a valid day";
+  } else {
+    errorMessage.textContent = "";
+  }
+}
