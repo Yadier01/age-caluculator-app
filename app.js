@@ -7,42 +7,51 @@ const button = document.querySelector(".button");
 const resultDay = document.querySelector(".result-day");
 const resultMonth = document.querySelector(".result-month");
 const resultYear = document.querySelector(".result-year");
-let userDay;
-let userMonth;
-let userYear;
+const errorMessages = document.querySelectorAll(".errorMessage");
 
-day.addEventListener("input", (e) => {
+let userDay = "";
+let userMonth = "";
+let userYear = "";
+
+function updateDay(e) {
   userDay = e.target.value;
+}
 
-  console.log(userDay, "days");
-});
-
-month.addEventListener("input", (e) => {
+function updateMonth(e) {
   userMonth = e.target.value;
-  console.log(userMonth, "months");
-});
-year.addEventListener("input", (e) => {
+}
+
+function updateYear(e) {
   userYear = e.target.value;
-  console.log(userYear, "years");
-});
+}
+
+day.addEventListener("input", updateDay);
+month.addEventListener("input", updateMonth);
+year.addEventListener("input", updateYear);
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  const [dayValue, monthValue, yearValue] = [userDay, userMonth, userYear];
+  const userBirthdate = new Date(`${yearValue}-${monthValue}-${dayValue}`);
   const now = new Date();
-  const userBirthdate = new Date(`${userYear}-${userMonth}-${userDay}`);
-  let thisYear = now.getFullYear() - userBirthdate.getFullYear();
-  let thisMonth = now.getMonth() - userBirthdate.getMonth();
-  let thisDay = now.getDay() - userBirthdate.getDay();
+  const diffTime = Math.abs(now - userBirthdate);
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  let thisYear = Math.floor(diffDays / 365);
+  let thisMonth = Math.floor((diffDays % 365) / 30);
+  let thisDay = diffDays % 30;
 
   const printYear = `-- ${thisYear} year`;
   const printMonth = `-- ${thisMonth} month`;
   const printDay = `-- ${thisDay} day`;
-  if (thisDay < 0) {
-    thisDay +=
-      new Date(now.getFullYear(), now.getMonth(), 0).getDate() -
-      userBirthdate.getDate();
-    thisMonth--;
-  }
-  if (isNaN(userDay) || isNaN(userMonth) || isNaN(userYear)) {
+
+  if (
+    isNaN(parseInt(dayValue)) ||
+    isNaN(parseInt(monthValue)) ||
+    isNaN(parseInt(yearValue)) ||
+    userYear > yearValue
+  ) {
     checkInput();
   } else {
     resultYear.innerHTML = printYear;
@@ -50,13 +59,9 @@ form.addEventListener("submit", (e) => {
     resultDay.innerHTML = printDay;
   }
 });
-// JavaScript
 
-const errorMessage = document.getElementById("errorMessage");
 function checkInput() {
-  if (isNaN(userDay) || userDay === null || userDay === undefined) {
+  errorMessages.forEach((errorMessage) => {
     errorMessage.textContent = "Please input a valid day";
-  } else {
-    errorMessage.textContent = "";
-  }
+  });
 }
