@@ -45,9 +45,9 @@ form.addEventListener("submit", (e) => {
   let thisMonth = Math.floor((diffDays % 365) / 30);
   let thisDay = diffDays % 30;
 
-  const printYear = `-- ${thisYear} years`;
-  const printMonth = `-- ${thisMonth} month`;
-  const printDay = `-- ${thisDay} day`;
+  const printYear = ` ${thisYear} years`;
+  const printMonth = ` ${thisMonth} month`;
+  const printDay = ` ${thisDay} day`;
 
   if (
     isNaN(parseInt(dayValue)) ||
