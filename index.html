@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
-
+    <link rel="stylesheet" href="/styles/style.css" />
     <link
       rel="icon"
       type="image/png"
@@ -15,51 +14,50 @@
     <title>Frontend Mentor | Age calculator app</title>
 
     <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <style>
-      .attribution {
-        font-size: 11px;
-        text-align: center;
-      }
-      .attribution a {
-        color: hsl(228, 45%, 44%);
-      }
-      input[type="number"]::-webkit-inner-spin-button,
-      input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-        position: relative; /* Optional - if you want to position the input text */
-      }
-    </style>
   </head>
   <body>
-    <div class="main">
-      <div>
+    <div class="container">
+      <div class="wrap">
         <form class="form" action="">
-          <p>day</p>
-          <input class="day" type="number" placeholder="DD" />
-          <p class="errorDay"></p>
-          <p>month</p>
-          <input class="month" type="number" placeholder="MM" />
-          <p class="errorMonth"></p>
-          <p>year</p>
-          <input class="year" type="number" placeholder="YYYYY" />
-          <p class="errorYear"></p>
-          <button class="button">calculate</button>
+          <div class="form-container">
+            <span
+              ><p>day</p>
+              <input class="day" type="number" placeholder="DD" />
+              <p class="errorDay"></p>
+            </span>
+            <span class="month">
+              <p>month</p>
+              <input class="month" type="number" placeholder="MM" />
+              <p class="errorMonth"></p>
+            </span>
+            <span class="year">
+              <p>year</p>
+              <input
+                class="appearance-none year"
+                type="number"
+                placeholder="YYYYY"
+              />
+              <p class="errorYear"></p>
+            </span>
+          </div>
+          <div class="btn">
+            <span class="btn-span">
+              <button class="button">
+                <img
+                  src="assets/images/icon-arrow.svg"
+                  alt="img"
+                  class="arrow-img"
+                />
+              </button>
+            </span>
+          </div>
         </form>
-
-        <div>
-          <h1>user result</h1>
-          <p class="result-year">--<span> years</span></p>
-          <p class="result-month">-- <span> month</span></p>
-          <p class="result-day">-- <span> days</span></p>
+        <div class="result">
+          <p class="result-year"><span class="purple">--</span> years</p>
+          <p class="result-month"><span class="purple">--</span> month</p>
+          <p class="result-day"><span class="purple">-- </span> days</p>
         </div>
       </div>
-    </div>
-    <div class="attribution">
-      Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="#">Your Name Here</a>.
     </div>
     <script type="module" src="/app.js"></script>
   </body>
